@@ -5,8 +5,10 @@
  */
 package sistemacontrolebancario.Model.Bo;
 
+import javax.swing.JOptionPane;
 import sistemacontrolebancario.Model.Dominio.Conta;
 import sistemacontrolebancario.Model.Dominio.ContaCorrente;
+import sistemacontrolebancario.Model.Dominio.ContaPoupanca;
 
 /**
  *
@@ -68,6 +70,16 @@ public class OperacoesBancarias {
             conta2.setSaldo(novoSaldoConta2);
             return true;
         }
+        return true;
+    }
+    
+    public boolean redimentosPoupanca(ContaPoupanca conta){
+        double saldoPoupanca = conta.getSaldo();
+        
+        saldoPoupanca += saldoPoupanca * 0.05;
+        
+        conta.setSaldo(saldoPoupanca);
+        
         return true;
     }
 }
