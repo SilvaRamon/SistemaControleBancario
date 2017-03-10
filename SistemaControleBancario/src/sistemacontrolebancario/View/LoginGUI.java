@@ -186,33 +186,43 @@ public class LoginGUI extends javax.swing.JFrame {
         if(!"".equals(numeroConta) && !"".equals(numeroAgencia)){
             if(comboBoxTipoConta.getSelectedItem().equals("Conta Corrente")){
                 ContaCorrenteDao dao = new ContaCorrenteDao();
-                contaCorrente = (ContaCorrente) dao.findConta(numeroConta, numeroAgencia);
                 
-                if(contaCorrente != null){
-                    OperacoesBancariasGUI opGui = new OperacoesBancariasGUI(contaCorrente);
-                    opGui.show();
-                    dispose();
-                }else{
-                    JOptionPane.showMessageDialog(null, "Conta não existe.");
-                    limparCampos();
+                try{
+                    contaCorrente = (ContaCorrente) dao.findConta(numeroConta, numeroAgencia);
+
+                    if(contaCorrente != null){
+                        OperacoesBancariasGUI opGui = new OperacoesBancariasGUI(contaCorrente);
+                        opGui.show();
+                        dispose();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Conta não existe.");
+                        limparCampos();
+                    }
+                }catch(ClassCastException e){
+                    //e.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Conta não existe ou o tipo é diferente.");
                 }
             }else{
                 ContaPoupancaDao dao = new ContaPoupancaDao();
-                contaPoupanca = (ContaPoupanca) dao.findConta(numeroConta, numeroAgencia);
                 
-                if(contaPoupanca != null){
-                    OperacoesBancariasGUI opGui = new OperacoesBancariasGUI(contaPoupanca);
-                    opGui.show();
-                    dispose();
-                }else{
-                    JOptionPane.showMessageDialog(null, "Conta não cadastrada.");
-                    limparCampos();
+                try{
+                    contaPoupanca = (ContaPoupanca) dao.findConta(numeroConta, numeroAgencia);
+
+                    if(contaPoupanca != null){
+                        OperacoesBancariasGUI opGui = new OperacoesBancariasGUI(contaPoupanca);
+                        opGui.show();
+                        dispose();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Conta não cadastrada.");
+                        limparCampos();
+                    }
+                }catch(ClassCastException e){
+                    //e.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Conta não existe ou o tipo é diferente.");
                 }
             }
         }else{
-            JOptionPane.showMessageDialog(
-                null, "Todos os campos devem ser preenchidos."
-            );
+            JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos.");
         }
     }//GEN-LAST:event_buttonLogarActionPerformed
 
